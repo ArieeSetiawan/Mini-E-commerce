@@ -20,11 +20,13 @@ module.exports = {
       logging:false,
     },
     production: {
-      username: "root",
-      password: null,
-      database: "database_production",
-      host: "127.0.0.1",
-      dialect: process.env.DIALECT_DEV
+      username: process.env.PROD_USER,
+      password: process.env.PROD_PASS,
+      database: process.env.PROD_NAME,
+      host: process.env.PROD_HOST,
+      port: process.env.PROD_PORT,
+      dialect: process.env.DIALECT_PROD,
+      logging:false,
     }
   }
   
