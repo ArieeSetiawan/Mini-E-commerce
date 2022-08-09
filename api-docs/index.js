@@ -17,7 +17,7 @@ module.exports = {
         email: 'test123@mail.com',
       },
       license:{
-        name: process.env.HEROKU_HOST,
+        name: 'Arie License',
         url: "https://google.com",
       }
   },
@@ -27,7 +27,7 @@ module.exports = {
       description: 'Dev server'
     },
     {
-      url: 'http://localhost:3000',
+      url: process.env.HEROKU_HOST,
       description: 'Heroku server' 
     }
   ],
