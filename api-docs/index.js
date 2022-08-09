@@ -3,6 +3,7 @@ const customerPaths = require("./paths/customerPaths");
 const sellerPaths = require("./paths/sellerPaths");
 const itemPaths = require ("./paths/itemPaths");
 const orderPaths = require ("./paths/orderPaths")
+require('dotenv').config();
 
 module.exports = {
   openapi: '3.0.0',
@@ -16,7 +17,7 @@ module.exports = {
         email: 'test123@mail.com',
       },
       license:{
-        name: "Arie License",
+        name: process.env.HEROKU_HOST,
         url: "https://google.com",
       }
   },
@@ -24,6 +25,10 @@ module.exports = {
     {
       url: 'http://localhost:3000',
       description: 'Dev server'
+    },
+    {
+      url: 'http://localhost:3000',
+      description: 'Heroku server' 
     }
   ],
   components: {
