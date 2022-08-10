@@ -136,9 +136,9 @@ describe('Item Endpoints',()=>{
     expect(res.body).toHaveProperty('data');
   })
 
-  it('GET /items/id with valid values, res should be 404', async () => {
+  it('GET /items/id with invalid values, res should be 404', async () => {
     const res = await request(app)
-      .get('/items/' + "64ad07c1-b23a-41f4-bb45-21bc5b6d0257")
+      .get('/items/' + "aa8476e2-aa64-488b-b8ba-d495b3287151")
       .set('Accept', 'application/json')
 
     expect(res.status).toBe(404);

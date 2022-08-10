@@ -10,7 +10,7 @@ const { url } = require('inspector');
 class itemController{
     static async createItem (req,res){
         try{
-        const newitemID = uuid.v4()
+        const newitemID = uuid.v4();
         for(let i = 0 ; i < req.files.length ; i++){
             const uploadItem= await upload (req.files[i].path)
             fs.unlinkSync(req.files[i].path)
@@ -93,12 +93,6 @@ class itemController{
                   }]
               }
             );
-            // const picture = await itemgallery.findAll({
-            //   attributes:['url'],
-            //   where:{
-            //     item_id: getitemID,
-            //     },
-            // })
             if (rows == 0){
                 return res.status(404).json({
                   message: "Item not Found"
@@ -108,7 +102,6 @@ class itemController{
                 return res.status(200).json({
                   message: 'Succesfully get Item Information',
                   data: rows,
-                  // image: picture,
                 })}
 
             } catch (err) {

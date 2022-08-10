@@ -6,7 +6,7 @@ const {item} = require('../models/');
 
 class orderController{
     static async createOrder(req,res){
-    const neworderid = uuid.v4()
+    const neworderid = uuid.v4();
     try{
       let cekItem = await item.findOne({where:{
       id: req.body.item_id
