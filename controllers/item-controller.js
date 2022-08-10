@@ -9,8 +9,8 @@ const { url } = require('inspector');
 
 class itemController{
     static async createItem (req,res){
-        try{
         const newitemID = uuid.v4();
+        try{
         for(let i = 0 ; i < req.files.length ; i++){
             const uploadItem= await upload (req.files[i].path)
             fs.unlinkSync(req.files[i].path)
