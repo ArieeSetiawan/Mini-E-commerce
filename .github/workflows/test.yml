@@ -1,0 +1,33 @@
+name: testing
+on:
+  schedule:
+    - cron: '0 2 * * 0'
+  pull_request:
+    types:
+      - opened
+    branches:
+      - 'master'
+  workflow_dispatch:
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.15.0
+      - run: npm install
+      - run: npm run test
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          CLOUDINARY_NAME: ${{ secrets.CLOUDINARY_NAME }}
+          CLOUDINARY_API: ${{ secrets.CLOUDINARY_API }}
+          CLOUDINARY_SECRET: ${{ secrets.CLOUDINARY_SECRET }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DIALECT_DEV: ${{ secrets.DIALECT_DEV }}
+          PORT: ${{ secrets.PORT }}
+          PGSSLMODE: ${{ secrets.PGSSLMODE }}
