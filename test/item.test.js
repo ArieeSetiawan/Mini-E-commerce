@@ -104,7 +104,6 @@ describe('Item Endpoints',()=>{
     const res = await request(app)
       .get('/items/')
       .set('Accept', 'application/json')
-      .set('authorization', validToken)
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('data');
@@ -115,7 +114,6 @@ describe('Item Endpoints',()=>{
     const res = await request(app)
       .get('/items/seller/' + user.id)
       .set('Accept', 'application/json')
-      .set('authorization', validToken)
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('data');
@@ -125,7 +123,6 @@ describe('Item Endpoints',()=>{
     const res = await request(app)
       .get('/items/seller/' + "64ad07c1-b23a-41f4-bb45-21bc5b6d0257")
       .set('Accept', 'application/json')
-      .set('authorization', validToken)
 
     expect(res.status).toBe(404);
   })
@@ -134,7 +131,6 @@ describe('Item Endpoints',()=>{
     const res = await request(app)
       .get('/items/' + itemidbody)
       .set('Accept', 'application/json')
-      .set('authorization', validToken)
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('data');
@@ -144,7 +140,6 @@ describe('Item Endpoints',()=>{
     const res = await request(app)
       .get('/items/' + "64ad07c1-b23a-41f4-bb45-21bc5b6d0257")
       .set('Accept', 'application/json')
-      .set('authorization', validToken)
 
     expect(res.status).toBe(404);
   })
