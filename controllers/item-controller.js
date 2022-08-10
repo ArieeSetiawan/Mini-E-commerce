@@ -86,11 +86,11 @@ class itemController{
                 where:{
                   id: getitemID,
                   },
-                  include:[{
-                    model: itemgallery,
-                    attributes: ['url'],
-                    as:'itemimage'
-                  }]
+                  // include:[{
+                  //   model: itemgallery,
+                  //   attributes: ['url'],
+                  //   as:'itemimage'
+                  // }]
               }
             );
             if (rows == 0){
