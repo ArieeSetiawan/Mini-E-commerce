@@ -100,7 +100,7 @@ module.exports={
       put: {
         tags: ["Orders"],
         summary: "Edit Order from Order ID",
-        description: "An endpoint to get Order from order ID",
+        description: "An endpoint to update Order from order ID",
         parameters:[
           {
         name: "id",
@@ -144,6 +144,36 @@ module.exports={
             token: []
           }
         ]
-      },          
+      },
+      delete: {
+        tags: ["Orders"],
+        summary: "Delete Order from Order ID",
+        description: "An endpoint to delete Order from order ID",
+        parameters:[
+          {
+        name: "id",
+        in: "path",
+        required: true,
+        type: "string",
+    },     
+  ],
+        responses: {
+          200: {
+            content: {
+              'application/json': {
+                example: {
+                  status: 201,
+                  message: 'Create item success',
+                }
+              }
+            }
+          }
+        },
+        security: [
+          {
+            token: []
+          }
+        ]
+      },            
 }
 }

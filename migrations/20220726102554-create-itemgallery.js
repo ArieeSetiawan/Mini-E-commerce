@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       item_id: {
-        type: Sequelize.STRING
+        type: Sequelize.UUID
       },
       public_id: {
         type: Sequelize.STRING

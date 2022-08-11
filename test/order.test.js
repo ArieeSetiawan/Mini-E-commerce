@@ -24,7 +24,7 @@ afterAll(() => {
 let validToken = '';
 let testOrderId = '';
 
-describe('Login Customer',()=>{
+describe('Order Endpoint',()=>{
     it('POST /customers/login with valid email and pass, res should be 200', async () => {
         const res = await request(app)
           .post('/customers/login')
@@ -50,6 +50,17 @@ describe('Login Customer',()=>{
         expect(res.status).toBe(201);
         testOrderId = res.body.id
       })
+
+    it('POST /orders/ with invalid input, res should be 500', async () => {
+        const res = await request(app)
+          .post('/orders/')
+          .set('Accept', 'application/json')
+          .set('authorization', validToken)
+          .field('item_id', 'asdcasx12')
+          .field('qty','ascaqwe')
+    
+        expect(res.status).toBe(500);
+      })
     
     it('GET /orders/ own by customer, res should be 200', async () => {
         const res = await request(app)
@@ -71,6 +82,24 @@ describe('Login Customer',()=>{
         expect(res.body).toHaveProperty('data');
       })
 
+      it('GET /orders/id with invalid uuid, res should be 404', async () => {
+        const res = await request(app)
+          .get('/orders/' + '92967d39-0ba7-44f7-98ed-1ad649cd62a6')
+          .set('Accept', 'application/json')
+          .set('authorization', validToken)
+    
+        expect(res.status).toBe(404);
+      })
+
+      it('GET /orders/id with invalid input, res should be 500', async () => {
+        const res = await request(app)
+          .get('/orders/' + 'dsacasd13122')
+          .set('Accept', 'application/json')
+          .set('authorization', validToken)
+    
+        expect(res.status).toBe(500);
+      })
+
     it('PUT /orders/id with valid values, res should be 200', async () => {
         const res = await request(app)
           .put('/orders/' + testOrderId)
@@ -88,5 +117,14 @@ describe('Login Customer',()=>{
           .set('authorization', validToken)
     
         expect(res.status).toBe(200);
+      })
+
+      it('Delete /orders/id with invalid values, res should be 500', async () => {
+        const res = await request(app)
+          .delete('/orders/' + 'asdzxc123')
+          .set('Accept', 'application/json')
+          .set('authorization', validToken)
+    
+        expect(res.status).toBe(500);
       })
 })
