@@ -13,7 +13,7 @@ const loginCust = {
 }
 
 const testItem = {
-    item_id: '5e6c467f-105e-4340-97ff-e808bfb3859a',
+    item_id: 'b7b80b84-1e98-4349-b118-b52e990290bc',
     qty: 2
 }
 
