@@ -33,32 +33,6 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc, {
     }
   }));
 
-//////////
-
-const rooms = { }
-app.get('/chat',(req,res)=>{
-  res.render('chat', {rooms:rooms})
-})
-
-
-app.post('/room', (req, res) => {
-  if (rooms[req.body.room] != null) {
-    return res.redirect('/chat')
-  }
-  rooms[req.body.room] = { users: {} }
-  res.redirect(req.body.room)
-  io.emit('room-created', req.body.room)
-})
-
-app.get('/:room', (req, res) => {
-  if (rooms[req.params.room] == null) {
-    return res.redirect('/chat')
-  }
-  res.render('room', { roomName: req.params.room })
-})
-
-///////////
-
 app.use('/users', userRoutes);
 app.use('/sellers', sellerRoutes);
 app.use('/customers', customerRoutes);
@@ -71,29 +45,25 @@ server.listen(process.env.PORT, ()=>{
     console.log("Server is running on port", process.env.PORT);
 })
 
-io.on('connection', socket => {
-  socket.on('new-user', (room, name) => {
-    socket.join(room)
-    rooms[room].users[socket.id] = name
-    socket.to(room).emit('user-connected', name)
-  })
-  socket.on('send-chat-message', (room, message) => {
-    socket.to(room).emit('chat-message', { message: message, name: rooms[room].users[socket.id] })
-  })
-  socket.on('disconnect', () => {
-    getUserRooms(socket).forEach(room => {
-      socket.to(room).emit('user-disconnected', rooms[room].users[socket.id])
-      delete rooms[room].users[socket.id]
-    })
-  })
+app.get('/chat',(req,res)=>{
+  res.render('chat')
 })
 
-function getUserRooms(socket) {
-  return Object.entries(rooms).reduce((names, [name, room]) => {
-    if (room.users[socket.id] != null) names.push(name)
-    return names
-  }, [])
-}
+const users = {}
+
+io.on('connection', socket => {
+  socket.on('new-user', name => {
+    users[socket.id] = name
+    socket.broadcast.emit('user-connected', name)
+  })
+  socket.on('send-chat-message', message => {
+    socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] })
+  })
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('user-disconnected', users[socket.id])
+    delete users[socket.id]
+  })
+})
 
 module.exports = app;
 module.exports = server;

@@ -15,3 +15,6 @@
 - run command "docker pull postgres"
 - run command "docker compose up -d"
 - open localhost:3000 (default run on port 3000)
+
+### Simple socket chat:
+- open http://localhost:3000/chat
