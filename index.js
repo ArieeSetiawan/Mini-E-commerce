@@ -9,7 +9,8 @@ const cors = require ('cors');
 const io = require ('socket.io')(server,{
   cors:{origin:"*"},
 })
-const errHandler = require ('./middlewares/errHandler')
+const errHandler = require ('./middlewares/errHandler');
+const mail = require ('./config/mail');
 
 require('dotenv').config();
 
@@ -26,7 +27,8 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const swaggerDoc = require ('./api-docs')
+const swaggerDoc = require ('./api-docs');
+const { restart } = require('nodemon');
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDoc, {
     swaggerOptions: {
       docExpansion: "none"

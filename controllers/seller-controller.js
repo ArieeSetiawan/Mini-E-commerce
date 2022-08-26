@@ -1,6 +1,7 @@
 const { seller } = require('../models');
 const bcrypt = require ('bcrypt');
 const jwt = require ('jsonwebtoken');
+const mail = require ('../config/mail');
 require('dotenv').config()
 
 class sellerController{
@@ -25,7 +26,13 @@ class sellerController{
                 password: hashedpassword,
                 address: req.body.address, 
             }
-
+        
+        await mail.sendMail({
+          from: process.env.MAIL_EMAIL,
+          to:req.body.email,
+          subject: 'Registration Confirmation',
+          text:'JWT Token',
+        })
         await seller.create(newSeller);
     
         return res.status(201).json({
