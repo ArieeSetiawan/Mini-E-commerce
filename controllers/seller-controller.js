@@ -27,12 +27,13 @@ class sellerController{
                 address: req.body.address, 
             }
         
-        await mail.sendMail({
-          from: process.env.MAIL_EMAIL,
-          to:req.body.email,
-          subject: 'Registration Confirmation',
-          text:'JWT Token',
-        })
+        // await mail.sendMail({
+        //   from: process.env.MAIL_EMAIL,
+        //   to:req.body.email,
+        //   subject: 'Registration Confirmation',
+        //   text:'JWT Token',
+        // })
+        
         await seller.create(newSeller);
     
         return res.status(201).json({
